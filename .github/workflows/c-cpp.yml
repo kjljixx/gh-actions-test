@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: test
-      run: g++ test.cpp -o test
+      run: g++ ../../test.cpp -o test
     - name: check for changes
       run: git status
     - name: stage changed files
