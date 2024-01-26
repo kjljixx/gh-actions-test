@@ -15,6 +15,10 @@ jobs:
     - uses: actions/checkout@v4
     - name: test
       run: g++ test.cpp -o test
+    - name: git config email
+      run: git config --global user.email "kjljixx@gmail.com"
+    - name: git config username
+      run: git config --global user.name "kjljixx"
     - name: check for changes
       run: git status
     - name: stage changed files
