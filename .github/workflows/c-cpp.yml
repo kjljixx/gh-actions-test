@@ -22,10 +22,9 @@ jobs:
       - run: g++ test.cpp -o test -O3
         env:
           TARGET_CPU: ${{ matrix.cpu }}
-      - run: ls target/release
       - name: Upload Assets to Release
         uses: csexton/release-asset-action@v2
         with:
-          pattern: "target/release/test@(|.exe)"
+          pattern: "test@(|.exe)"
           github-token: ${{ secrets.GITHUB_TOKEN }}
           release-url: ${{ needs.release.outputs.upload_url }}
