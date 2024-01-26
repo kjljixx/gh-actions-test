@@ -1,10 +1,7 @@
 name: C/C++ CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  discussion
 
 jobs:
   build:
@@ -15,6 +12,8 @@ jobs:
     - uses: actions/checkout@v4
     - name: test
       run: g++ test.cpp -o test
+    - name: get repo
+      run: git remote set-url origin https://github.com/kjljixx/gh-actions-test.git
     - name: git config email
       run: git config --global user.email "kjljixx@gmail.com"
     - name: git config username
