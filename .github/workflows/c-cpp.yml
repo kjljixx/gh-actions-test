@@ -23,8 +23,8 @@ jobs:
         env:
           TARGET_CPU: ${{ matrix.cpu }}
       - name: Upload Assets to Release
-        uses: csexton/release-asset-action@v2
+        uses: alexellis/upload-assets@0.4.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
-          pattern: "test@(|.exe)"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          release-url: ${{ needs.release.outputs.upload_url }}
+          asset_paths: "test@(|.exe)"
