@@ -35,7 +35,6 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-        shell: bash
       - run: g++ aurora.cpp -o aurora -O3
         env:
           TARGET_CPU: ${{ matrix.cpu }}
