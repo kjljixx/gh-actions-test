@@ -19,7 +19,7 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - run: g++ test.cpp -o release/test -O3
+      - run: g++ test.cpp -o test -O3
         env:
           TARGET_CPU: ${{ matrix.cpu }}
       - name: Upload Assets to Release
@@ -27,4 +27,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          asset_paths: '["release/*"]'
+          asset_paths: '["*"]'
