@@ -1,30 +1,49 @@
-name: C/C++ CI
+name: Release
 
 on:
-  discussion
+  push:
+    tags: ["*.*.*"]
 
 jobs:
+  release:
+    runs-on: ubuntu-22.04
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
   build:
+    strategy:
+      matrix:
+        # Skip macos for now, since ends up with the same filename as ubuntu
+        # which means the upload glob needs some more work
+        os: ["ubuntu-22.04", "windows-2022"]
+        cpu: ["x86-64-v3"]
 
-    runs-on: ubuntu-latest
+    runs-on: "${{ matrix.os }}"
+    needs: release
 
     steps:
-    - uses: actions/checkout@v4
-    - name: test
-      run: g++ test.cpp -o test
-    - name: get repo
-      run: git remote set-url origin https://github.com/kjljixx/gh-actions-test.git
-    - name: git config email
-      run: git config --global user.email "kjljixx@gmail.com"
-    - name: git config username
-      run: git config --global user.name "kjljixx"
-    - name: check for changes
-      run: git status
-    - name: stage changed files
-      run: git add .
-    - name: commit changed files
-      run: git commit -m "test"
-    - name: fetch from main
-      run: git fetch origin main
-    - name: push code to main
-      run: git push origin HEAD:main
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+        shell: bash
+      - run: g++ aurora.cpp -o aurora -O3
+        env:
+          TARGET_CPU: ${{ matrix.cpu }}
+      - run: ls target/release
+      - name: Upload Assets to Release
+        uses: csexton/release-asset-action@v2
+        with:
+          pattern: "target/release/test@(|.exe)"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          release-url: ${{ needs.release.outputs.upload_url }}
