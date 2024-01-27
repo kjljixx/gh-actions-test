@@ -26,4 +26,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          asset_paths: '["test-${{github.ref_name}}-${{matrix.os}}"]'
+          asset_paths: '["test-${{github.ref_name}}-${{matrix.os}}****"]'
