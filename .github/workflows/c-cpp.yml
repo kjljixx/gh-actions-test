@@ -28,4 +28,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          asset_paths: '["test@(|.exe)"]'
+          asset_paths: '["test"]'
