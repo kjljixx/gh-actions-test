@@ -8,9 +8,7 @@ jobs:
     permissions: write-all
     strategy:
       matrix:
-        # Skip macos for now, since ends up with the same filename as ubuntu
-        # which means the upload glob needs some more work
-        os: ["ubuntu-22.04", "windows-2022"]
+        os: ["ubuntu-22.04"]
         cpu: ["x86-64-v3"]
 
     runs-on: "${{ matrix.os }}"
@@ -20,7 +18,7 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - run: g++ test.cpp -o test -O3
+      - run: "g++ test.cpp -o test-${{ matrix.os}} -O3"
         env:
           TARGET_CPU: ${{ matrix.cpu }}
       - name: Upload Assets to Release
@@ -28,4 +26,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          asset_paths: '["test"]'
+          asset_paths: '["test-${{matrix.os}}"]'
