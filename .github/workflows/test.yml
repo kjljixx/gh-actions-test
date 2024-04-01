@@ -18,6 +18,8 @@ jobs:
     runs-on: "${{matrix.os}}"
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
       - name: Build Binary
         run: "clang++ test.cpp -o aurora-${{github.ref_name}}-${{matrix.os}}${{matrix.ext}} -O3 -march=x86-64-v3"
       - name: Upload Binary to Release
