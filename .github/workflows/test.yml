@@ -19,8 +19,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          toolchain: stable
       - run: "clang++ test.cpp -o aurora-${{github.ref_name}}-${{matrix.os}}${{matrix.ext}} -O3 -march=x86-64-v3"
         env:
           TARGET_CPU: ${{ matrix.cpu }}
