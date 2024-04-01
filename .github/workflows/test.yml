@@ -1,4 +1,30 @@
-name: testPush
+name: build-for-release
 
-on: push
+on:
+  release:
+    types: [published]
 
+jobs:
+  build:
+    permissions: write-all
+    strategy:
+      matrix:
+        os: ["ubuntu-22.04", "windows-2022"]
+        cpu: ["x86-64-v3"]
+
+    runs-on: "${{ matrix.os }}"
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - run: "clang++ test.cpp -o aurora-${{github.ref_name}}-${{matrix.os}} -O3 -march=x86-64-v3"
+        env:
+          TARGET_CPU: ${{ matrix.cpu }}
+      - name: Upload Assets to Release
+        uses: alexellis/upload-assets@0.4.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          asset_paths: '["aurora-${{github.ref_name}}-${{matrix.os}}****"]'
