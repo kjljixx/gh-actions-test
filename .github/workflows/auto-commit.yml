@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+      - name: New File
+        run: touch ${{GITHUB_SHA}}.txt
       - name: Commit
         uses: EndBug/add-and-commit@v9
         with:
