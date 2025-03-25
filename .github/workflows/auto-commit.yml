@@ -11,7 +11,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: New File
-        run: touch ${{GITHUB_SHA}}.txt
+        run: touch ${{github.sha}}.txt
       - name: Commit
         uses: EndBug/add-and-commit@v9
         with:
