@@ -18,11 +18,11 @@ jobs:
         with:
           path: 'bsc-2025-raw'
       - name: Download Ordo 1.0
-        uses: sigoden/install-binary@v1.2.0
+        uses: robinraju/release-downloader@v1
         with:
-          repo: michiguel/Ordo
-          tag: 1.0
-          name: ordo-linux64
+          repository: 'michiguel/Ordo'
+          tag: '1.0'
+          fileName: 'ordo-linux64'
       - name: ls
         run: ls
       - name: New File
