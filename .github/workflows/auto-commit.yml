@@ -12,6 +12,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'kjljixx/gh-actions-test-2'
+          token: '${{secrets.ACTIONS_TEST}}'
       - name: New File
         run: touch ${{github.sha}}.txt
       - name: Commit
