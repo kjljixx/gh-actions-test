@@ -18,7 +18,7 @@ jobs:
         with:
           path: 'bsc-2025-raw'
       - name: Download Ordo 1.0
-        uses: sigoden/install-binary@v1
+        uses: sigoden/install-binary@v1.2.0
         with:
           repo: michiguel/Ordo
           tag: 1.0
