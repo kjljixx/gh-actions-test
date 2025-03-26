@@ -13,6 +13,8 @@ jobs:
         with:
           repository: 'kjljixx/gh-actions-test-2'
           token: '${{secrets.ACTIONS_TEST}}'
+      - name: ls
+        run: ls
       - name: New File
         run: touch ${{github.sha}}.txt
       - name: Commit
