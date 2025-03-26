@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          repository: 'kjljixx/gh-actions-test-2'
       - name: New File
         run: touch ${{github.sha}}.txt
       - name: Commit
