@@ -6,7 +6,7 @@ on:
 jobs:
   commit:
     permissions: write-all
-    runs-on: "ubuntu-22.04"
+    runs-on: 'ubuntu-22.04'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -30,6 +30,7 @@ jobs:
       - name: Commit
         uses: EndBug/add-and-commit@v9
         with:
-          message: testing
-          committer_name: GitHub Actions
-          committer_email: actions@github.com
+          add: '-u'
+          message: 'testing'
+          committer_name: 'GitHub Actions'
+          committer_email: 'actions@github.com'
